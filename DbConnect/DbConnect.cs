@@ -28,8 +28,14 @@ namespace DbConnect
             string connString = "server=localhost; database=dbsynctest; uid=root; password='';";
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
-                MySqlCommand cmd = new MySqlCommand(arg, conn);
+                arg = arg.Replace('`', ' ');
+                arg = arg.Replace('"', ' ');
+                arg += ";";
+                string x = "xyz";
+                MySqlCommand cmd = new MySqlCommand(arg.ToString(), conn);
+                conn.Open();
                 int i = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
 
