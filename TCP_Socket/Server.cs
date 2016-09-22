@@ -18,6 +18,7 @@ namespace TCP_Server
         public void Connect()
         {            
             listener.Start();
+            Console.WriteLine("Listening......");
             while (true)
             {
                 Socket handlerSocket = listener.AcceptSocket();
@@ -25,6 +26,7 @@ namespace TCP_Server
                     lock (alSockets)
                         alSockets.Add(handlerSocket);
 
+                Console.WriteLine("*****************");
                 Thread thread = new Thread(new ThreadStart(acceptQuery));
                 thread.Start();
             }
@@ -35,20 +37,27 @@ namespace TCP_Server
             Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
             NetworkStream stream = new NetworkStream(handlerSocket);
 
-            //int thisRead = 0;
+            int thisRead = 0;
             int blockSize = 1024;
+            List<byte> listBytes = new List<byte>();
             byte[] databyte = new byte[blockSize];
-            //while (true)
-            //{
-                handlerSocket.Receive(databyte);
-                //thisRead = stream.Read(databyte, 0, blockSize);
-                //if (thisRead == 0)
-                //    break;
-            //}
-                string recievedQuery = Encoding.ASCII.GetString(databyte);
+            while (true)
+            {
+                //handlerSocket.Receive(databyte);
+                thisRead = stream.Read(databyte, 0, blockSize);
+                listBytes.AddRange(databyte.AsEnumerable());
+                if (thisRead == 0)
+                    break;
+            }
+            //var xxx = bytes.ToArray(typeof(byte));
+                string recievedQuery = Encoding.ASCII.GetString(listBytes.ToArray());
+
                 handlerSocket = null;
+                Console.WriteLine("query recieved: " + recievedQuery);
+                Console.WriteLine();
                 DbConnect.DbConnect dbconnect = new DbConnect.DbConnect(recievedQuery);
                 Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
+                insertQueryThread.Start();
 
         }
 
