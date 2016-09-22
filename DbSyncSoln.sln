@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_Server", "TCP_Socket\TC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbConnect", "DbConnect\DbConnect.csproj", "{3AC458AB-72B7-4B3D-83C3-B7FBDF0963B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartUpApp", "StartUpApp\StartUpApp.csproj", "{689F220C-96A6-4095-B076-6C9787955F9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3AC458AB-72B7-4B3D-83C3-B7FBDF0963B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AC458AB-72B7-4B3D-83C3-B7FBDF0963B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AC458AB-72B7-4B3D-83C3-B7FBDF0963B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689F220C-96A6-4095-B076-6C9787955F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689F220C-96A6-4095-B076-6C9787955F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689F220C-96A6-4095-B076-6C9787955F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689F220C-96A6-4095-B076-6C9787955F9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
