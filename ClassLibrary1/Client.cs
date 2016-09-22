@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace TCP_Client
 {
     public class Client
     {
@@ -19,14 +19,16 @@ namespace ClassLibrary1
         { 
             while (true)
             {
+                args = null;
                 args = DbConnect.DbConnect.GetQueries();
-                BeginSendingQueries();
+                if (args.Count > 0)
+                    BeginSendingQueries();
             }
         }
 
         private void BeginSendingQueries()
         {
-            bool errorOccurred = true;
+            bool errorOccurred = false;
             foreach (var listItem in args)
             {
                 if (errorOccurred)
@@ -50,19 +52,26 @@ namespace ClassLibrary1
         private void updateLog(Tuple<DateTime, string> listItem)
         {
             DbConnect.DbConnect dbconnect = new DbConnect.DbConnect(listItem.Item2, listItem.Item1);
-            Thread dbThread = new Thread(new ThreadStart(dbconnect.UpdateLog));
+            //Thread dbThread = new Thread(new ThreadStart(dbconnect.UpdateLog));
+            //dbThread.Start();
+            dbconnect.UpdateLog();
+            Console.WriteLine("query updated");
+            Console.WriteLine("****************************");
         }
 
         public void sendQuery(string query)
         {
             
-            TcpClient client = new TcpClient(IP, Port);
+            //TcpClient client = new TcpClient(IP, Port);
+            TcpClient client = new TcpClient("192.168.0.103", 8888);
             //if (client.Connected)
             //{
                 NetworkStream stream = client.GetStream();
                 byte[] queryAsBytes = Encoding.ASCII.GetBytes(query);
                 stream.Write(queryAsBytes, 0, queryAsBytes.Length);
                 stream.Close();
+
+                Console.WriteLine("query sent: " + query);
             //}
         }
     }

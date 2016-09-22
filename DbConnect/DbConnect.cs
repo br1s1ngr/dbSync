@@ -38,7 +38,7 @@ namespace DbConnect
             List<Tuple<DateTime, string>> queryList = new List<Tuple<DateTime, string>>();
             string connString = "server=localhost; database=mysql; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = " select * from general_log where argument NOT like '%mysql%' and argument like 'update%' or argument like 'insert%' or argument like 'delete%' ";
+            string query = " select * from general_log where argument NOT like '%mysql%' and  argument NOT like '%usersettings%' and argument like 'update%' or argument like 'insert%' or argument like 'delete%' ";
             MySqlCommand cmd = new MySqlCommand(query, conn);
 
             MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
@@ -62,21 +62,43 @@ namespace DbConnect
         public void UpdateLog()
         {
             string connString = "server=localhost; database=mysql; uid=root; password='';";
-            MySqlConnection conn = new MySqlConnection(connString);
-            string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
-            //query += "update mysql.general_log_temp set uploaded = true where argument = ";
-            query += "delete from mysql.general_log_temp where argument = ";
-            query += arg;
-            query += "and event_time = '" + eventTime + "';";
-            query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
+            using (MySqlConnection conn = new MySqlConnection(connString))
+            {
+                //string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
+                ////query += "update mysql.general_log_temp set uploaded = true where argument = ";
+                //query += "delete from mysql.general_log_temp where argument = \"";
+                //query += arg;
+                //query += " and event_time = '" + eventTime + "'\";";
+                //query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
 
-            Console.WriteLine(query);
+                string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
+                //query += "update mysql.general_log_temp set uploaded = true where argument = ";
+                query += "update mysql.general_log_temp set argument='' where argument = \"";
+                query += arg + "\";";
+                //query += " and event_time = '" + eventTime + "'\";";
+                query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
 
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            cmd.ExecuteNonQuery();
-            
+                Console.WriteLine("**********************************");
+                Console.WriteLine("running query to update log: " + query);
+                Console.WriteLine("**********************************");
 
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
 
+                //query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
+                ////query += "update mysql.general_log_temp set uploaded = true where argument = ";
+                //query += "update mysql.general_log_temp set argument='' where argument = \"";
+                //query += arg;
+                //query += " and event_time = '" + eventTime + "'\";";
+                //query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
+
+                //cmd = new MySqlCommand(query, conn);
+                //conn.Open();
+                //cmd.ExecuteNonQuery();
+                //conn.Close();
+            }
         }
     }
 }
