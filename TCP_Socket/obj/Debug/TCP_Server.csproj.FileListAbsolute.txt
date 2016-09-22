@@ -1,0 +1,15 @@
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\obj\Debug\TCP_Server.csprojResolveAssemblyReference.cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\TCP_Socket.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\TCP_Socket.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\DbConnect.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\DbConnect.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\obj\Debug\TCP_Socket.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\obj\Debug\TCP_Socket.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\TCP_Socket.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\TCP_Socket.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\DbConnect.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\MySql.Data.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\bin\Debug\DbConnect.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\obj\Debug\TCP_Server.csprojResolveAssemblyReference.cache
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\obj\Debug\TCP_Socket.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\TCP_Socket\obj\Debug\TCP_Socket.pdb

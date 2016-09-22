@@ -1,0 +1,14 @@
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\DbConnect.dll.config
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\DbConnect.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\DbConnect.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\MySql.Data.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\obj\Debug\DbConnect.csprojResolveAssemblyReference.cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\obj\Debug\DbConnect.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\obj\Debug\DbConnect.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\DbConnect.dll.config
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\DbConnect.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\DbConnect.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\bin\Debug\MySql.Data.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\obj\Debug\DbConnect.csprojResolveAssemblyReference.cache
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\obj\Debug\DbConnect.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbConnect\obj\Debug\DbConnect.pdb

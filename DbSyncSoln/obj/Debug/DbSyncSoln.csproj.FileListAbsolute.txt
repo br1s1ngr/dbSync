@@ -1,0 +1,18 @@
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\bin\Debug\DbSyncSoln.exe.config
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\bin\Debug\DbSyncSoln.exe
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\bin\Debug\DbSyncSoln.pdb
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.csprojResolveAssemblyReference.cache
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.Form1.resources
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.Properties.Resources.resources
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.csproj.GenerateResource.Cache
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.exe
+c:\users\todays solutions\documents\visual studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\bin\Debug\DbSyncSoln.exe.config
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\bin\Debug\DbSyncSoln.exe
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\bin\Debug\DbSyncSoln.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.csprojResolveAssemblyReference.cache
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.Form1.resources
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.Properties.Resources.resources
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.csproj.GenerateResource.Cache
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.exe
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.pdb

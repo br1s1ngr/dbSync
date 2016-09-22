@@ -1,0 +1,61 @@
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.exe.config
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.exe
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.pdb
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.csprojResolveAssemblyReference.cache
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.Properties.Resources.resources
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.csproj.GenerateResource.Cache
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.exe
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.pdb
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\MySql.Data.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AxInterop.AcroPDFLib.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OOXML.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\Interop.AcroPDFLib.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXmlFormats.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXml4Net.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\ICSharpCode.SharpZipLib.dll
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.pdb
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.pdb
+c:\users\mindl_000\documents\visual studio 2013\Projects\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OOXML.xml
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.exe.config
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.exe
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.csprojResolveAssemblyReference.cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.Properties.Resources.resources
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.csproj.GenerateResource.Cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.exe
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\MySql.Data.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OOXML.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.exe.config
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.exe
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.exe
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplication.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\MySql.Data.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OOXML.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.pdb
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.csprojResolveAssemblyReference.cache
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.Properties.Resources.resources
+C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\obj\Debug\FirstAppFrameworkApplication.csproj.GenerateResource.Cache
