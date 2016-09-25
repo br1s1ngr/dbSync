@@ -10,37 +10,27 @@ namespace DbConnect
 {
     public class DbConnect
     {
-        public string arg { get; set; }
-        public DateTime eventTime { get; set; }
-
-        public DbConnect(string query)
+        public static void RunQuery(string sqlQuery)
         {
-            arg = query;
-        }
-
-        public DbConnect(string query, DateTime time)
-        {
-            arg = query; eventTime = time;
-        }
-
-        public void RunQuery()
-        {
+            //TO DO: get connection string details from file
             string connString = "server=localhost; database=dbsynctest; uid=root; password='';";
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
-                MySqlCommand cmd = new MySqlCommand(arg, conn);
+                MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
+                conn.Open();
                 int i = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
 
-        public static List<Tuple<DateTime, string>> GetQueries()
+        public static List<LogTableRecord> GetQueries()
         {
-            List<Tuple<DateTime, string>> queryList = new List<Tuple<DateTime, string>>();
+            List<LogTableRecord> queryList = new List<LogTableRecord>();
+            //TO DO: get connection string details from file
             string connString = "server=localhost; database=mysql; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = " select * from general_log where argument NOT like '%mysql%' and argument like 'update%' or argument like 'insert%' or argument like 'delete%' ";
+            string query = " select * from general_log where argument NOT like '%mysql%' and argument NOT like '%general_log%' and uploaded = 0 and (argument like 'update%' or argument like 'insert%' or argument like 'delete%' or argument like 'create%' or argument like 'drop%' or argument like 'alter%' or argument like 'rename%' or argument like 'truncate%'); ";
             MySqlCommand cmd = new MySqlCommand(query, conn);
-
             MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -49,34 +39,47 @@ namespace DbConnect
             {
                 string arg = row.ItemArray[5].ToString();
                 DateTime eventTime = (DateTime)row.ItemArray[0];
-                queryList.Add(new Tuple<DateTime,string>(eventTime, arg));
-
-                //string output = arg + "\n" + eventTime;
-                //Console.WriteLine(output);
-                //Console.WriteLine();
+                string thread = row.ItemArray[2].ToString();
+                string server = row.ItemArray[3].ToString();
+                queryList.Add(new LogTableRecord(eventTime, arg, thread, server));
             }
-
             return queryList;
         }
 
-        public void UpdateLog()
+        public static void UpdateLog(LogTableRecord record)
         {
+            //TO DO: get connection string details from file
             string connString = "server=localhost; database=mysql; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
             string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
-            //query += "update mysql.general_log_temp set uploaded = true where argument = ";
-            query += "delete from mysql.general_log_temp where argument = ";
-            query += arg;
-            query += "and event_time = '" + eventTime + "';";
+            string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
+            query += "update mysql.general_log_temp set uploaded=true where  event_time = '" + time + "' and thread_id = '" + record.ThreadID + "' and server_id = '" + record.ServerID + "';";
             query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
 
             Console.WriteLine(query);
 
             MySqlCommand cmd = new MySqlCommand(query, conn);
+            conn.Open();
             cmd.ExecuteNonQuery();
-            
+            conn.Close();
+        }
 
+        public class LogTableRecord
+        {
+            public LogTableRecord(string query)
+            {
+                Argument = query;
+            }
 
+            public LogTableRecord(DateTime time, string query, string thread, string server)
+            {
+                Argument = query; EventTime = time; ThreadID = thread; ServerID = server;
+            }
+
+            public DateTime EventTime { get; set; }
+            public string ThreadID { get; set; }
+            public string ServerID { get; set; }
+            public string Argument { get; set; }
         }
     }
 }

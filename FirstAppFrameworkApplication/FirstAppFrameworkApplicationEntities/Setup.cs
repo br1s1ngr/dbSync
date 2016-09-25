@@ -73,6 +73,8 @@ namespace FirstAppFrameworkApplicationEntities
             Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Change DB", typeof(FirstAppFrameworkApplicationEntities.Runnables.runnablee)));
             Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Customers", typeof(FirstAppFrameworkApplicationEntities.Forms.CustomersForm)));
             Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Customer Profile", typeof(FirstAppFrameworkApplicationEntities.Forms.ProfilesForm)));
+            Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Games", typeof(FirstAppFrameworkApplicationEntities.Forms.GamesForm)));
+            Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Test", typeof(FirstAppFrameworkApplicationEntities.Forms.TestForm)));
         }
 
         public void setupServer(bool changeDB = false)
