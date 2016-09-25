@@ -28,11 +28,9 @@ namespace DbConnect
             string connString = "server=localhost; database=dbsynctest; uid=root; password='';";
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
-                arg = arg.Replace('`', ' ');
-                arg = arg.Replace('"', ' ');
-                arg += ";";
-                string x = "xyz";
-                MySqlCommand cmd = new MySqlCommand(arg.ToString(), conn);
+                //string query = "update users set LoginFailCount = LoginFailCount + 1 where Username = 'wale'";
+                //MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlCommand cmd = new MySqlCommand(arg, conn);
                 conn.Open();
                 int i = cmd.ExecuteNonQuery();
                 conn.Close();

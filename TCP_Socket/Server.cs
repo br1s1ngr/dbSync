@@ -14,6 +14,7 @@ namespace TCP_Server
     {
         TcpListener listener = new TcpListener(IPAddress.Any, 8888);
         ArrayList alSockets = new ArrayList();
+        Socket handlerSocket;
 
         public void Connect()
         {            
@@ -21,20 +22,22 @@ namespace TCP_Server
             Console.WriteLine("Listening......");
             while (true)
             {
-                Socket handlerSocket = listener.AcceptSocket();
-                if (handlerSocket.Connected)
-                    lock (alSockets)
-                        alSockets.Add(handlerSocket);
-
-                Console.WriteLine("*****************");
-                Thread thread = new Thread(new ThreadStart(acceptQuery));
-                thread.Start();
+                handlerSocket = listener.AcceptSocket();
+                if (handlerSocket.Connected)                
+                {
+                    //lock (alSockets)
+                    //        alSockets.Add(handlerSocket);
+                    Console.WriteLine("*****************");
+                    //Thread thread = new Thread(new ThreadStart(acceptQuery));
+                    //thread.Start();
+                    acceptQuery();
+                }
             }
         }
 
         private void acceptQuery()
         {
-            Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
+            //Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
             NetworkStream stream = new NetworkStream(handlerSocket);
 
             int thisRead = 0;
@@ -43,22 +46,19 @@ namespace TCP_Server
             byte[] databyte = new byte[blockSize];
             while (true)
             {
-                //handlerSocket.Receive(databyte);
                 thisRead = stream.Read(databyte, 0, blockSize);
-                listBytes.AddRange(databyte.AsEnumerable());
+                listBytes.AddRange(databyte.Take(thisRead));
                 if (thisRead == 0)
                     break;
             }
-            //var xxx = bytes.ToArray(typeof(byte));
                 string recievedQuery = Encoding.ASCII.GetString(listBytes.ToArray());
-
                 handlerSocket = null;
                 Console.WriteLine("query recieved: " + recievedQuery);
                 Console.WriteLine();
                 DbConnect.DbConnect dbconnect = new DbConnect.DbConnect(recievedQuery);
-                Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
-                insertQueryThread.Start();
-
+                //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
+                //insertQueryThread.Start();
+                dbconnect.RunQuery();
         }
 
         
