@@ -10,12 +10,41 @@ using System.Threading.Tasks;
 
 namespace TCP_Server
 {
-    public class Server
+    public static class Server
     {
-        TcpListener listener = new TcpListener(IPAddress.Any, 8888);
-        ArrayList alSockets = new ArrayList();
+        private static int Port { get; set; }
 
-        public void Connect()
+        private static TcpListener listener;
+
+        public static void init()
+        {
+            initServerInfo();
+            Connect();
+        }
+
+
+        public static int getPort()
+        {
+            return Port;
+        }
+
+
+        private static void initServerInfo()
+        {
+            try
+            {
+                string[] clientConfig = System.IO.File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\slaveDbConfig.cfg");
+                Port = int.Parse(clientConfig[0]);
+                //listener = new TcpListener(IPAddress.Any, 8888);
+                listener = new TcpListener(IPAddress.Any, Port);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private static void Connect()
         {            
             listener.Start();
             Console.WriteLine("Listening......");
@@ -23,18 +52,16 @@ namespace TCP_Server
             {
                 Socket handlerSocket = listener.AcceptSocket();
                 if (handlerSocket.Connected)
-                    lock (alSockets)
-                        alSockets.Add(handlerSocket);
-
-                Console.WriteLine("*****************");
-                Thread thread = new Thread(new ThreadStart(acceptQuery));
-                thread.Start();
+                    acceptQuery(handlerSocket);
+                //Console.WriteLine("*****************");
+                //Thread thread = new Thread(new ThreadStart(acceptQuery));
+                //thread.Start();
             }
         }
 
-        private void acceptQuery()
+        private static void acceptQuery(Socket handlerSocket)
         {
-            Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
+            //Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
             NetworkStream stream = new NetworkStream(handlerSocket);
 
             int thisRead = 0;
@@ -55,7 +82,8 @@ namespace TCP_Server
                 handlerSocket = null;
                 Console.WriteLine("query recieved: " + recievedQuery);
                 Console.WriteLine();
-                DbConnect.DbConnect.RunQuery(recievedQuery);
+                DbConnect.DbConnect dbConnectObj = new DbConnect.DbConnect();
+                dbConnectObj.RunQuery(recievedQuery);
             //dbconnect = new DbConnect.DbConnect(recievedQuery);
                 //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
                 //insertQueryThread.Start();

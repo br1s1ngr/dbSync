@@ -10,7 +10,21 @@ namespace DbConnect
 {
     public class DbConnect
     {
-        public static void RunQuery(string sqlQuery)
+        private static string Database { get; set; }
+        private static string Server { get; set; }
+        private static string Uid { get; set; }
+        private static string Pwd { get; set; }
+
+        public DbConnect()
+        {
+            string[] connectionInfo = System.IO.File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\dbConfig.cfg");
+            Server = connectionInfo[0];
+            Database = connectionInfo[1];
+            Uid = connectionInfo[2];
+            Pwd = connectionInfo[3];
+        }
+
+        public void RunQuery(string sqlQuery)
         {
             //TO DO: get connection string details from file
             string connString = "server=localhost; database=dbsynctest; uid=root; password='';";
@@ -23,7 +37,7 @@ namespace DbConnect
             }
         }
 
-        public static List<LogTableRecord> GetQueries()
+        public List<LogTableRecord> GetQueries()
         {
             List<LogTableRecord> queryList = new List<LogTableRecord>();
             //TO DO: get connection string details from file
@@ -46,7 +60,7 @@ namespace DbConnect
             return queryList;
         }
 
-        public static void UpdateLog(LogTableRecord record)
+        public void UpdateLog(LogTableRecord record)
         {
             //TO DO: get connection string details from file
             string connString = "server=localhost; database=mysql; uid=root; password='';";

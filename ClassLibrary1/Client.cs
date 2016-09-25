@@ -9,25 +9,58 @@ using System.Threading.Tasks;
 
 namespace TCP_Client
 {
-    public class Client
+    public static class Client
     {
-        public string IP { get; set; }
-        public int Port { get; set; }
-        // = new TcpClient();
-        List<DbConnect.DbConnect.LogTableRecord> args;
+        private static string IP { get; set; }
+        private static int Port { get; set; }
+        
+        public static int getPort()
+        {
+            return Port;
+        }
 
-        public void init()
-        { 
+        public static string getIP()
+        {
+            return IP;
+        }
+        
+        // = new TcpClient();
+        private static List<DbConnect.DbConnect.LogTableRecord> args;
+
+        public static void init()
+        {
+            //GET IP and PORT
+            initSocketInfo();
+            begin();
+        }
+
+        private static void begin()
+        {
             while (true)
             {
-                args = DbConnect.DbConnect.GetQueries();
+                DbConnect.DbConnect dbConnectObj = new DbConnect.DbConnect();
+                args = dbConnectObj.GetQueries();
                 if (args.Count > 0)
                     BeginSendingQueries();
                 args = null;
             }
         }
 
-        private void BeginSendingQueries()
+        private static void initSocketInfo()
+        {
+            try
+            {
+                string[] clientConfig = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\masterDbConfig.cfg");
+                IP = clientConfig[0];
+                Port = int.Parse(clientConfig[1]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private static void BeginSendingQueries()
         {
             bool errorOccurred = false;
             foreach (var record in args)
@@ -49,18 +82,18 @@ namespace TCP_Client
             }
         }
 
-        private void updateLog(DbConnect.DbConnect.LogTableRecord logRecord)
-        {            
-            DbConnect.DbConnect.UpdateLog(logRecord);
+        private static void updateLog(DbConnect.DbConnect.LogTableRecord logRecord)
+        {
+            DbConnect.DbConnect dbConnectObj = new DbConnect.DbConnect();
+            dbConnectObj.UpdateLog(logRecord);
             Console.WriteLine("query updated");
             Console.WriteLine("****************************");
         }
 
-        public void sendQuery(string query)
+        private static void sendQuery(string query)
         {
-            //TO DO: reading from config file comes here
-            //TcpClient client = new TcpClient(IP, Port);
-            TcpClient client = new TcpClient("192.168.0.103", 8888);
+            TcpClient client = new TcpClient(IP, Port);
+            //TcpClient client = new TcpClient("192.168.0.103", 8888);
 
             //if (client.Connected)
             //{
