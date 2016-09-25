@@ -15,12 +15,13 @@ namespace StartUpApp
             Console.WriteLine("Starting........");
             Console.WriteLine("***********************");
 
-            //TCP_Server.Server server = new TCP_Server.Server();
+            TCP_Server.Server server = new TCP_Server.Server();
             TCP_Client.Client client = new TCP_Client.Client();
 
-            //Thread newThrd = new Thread(new ThreadStart(server.Connect));
-            Thread newThrd = new Thread(new ThreadStart(client.init));
-            newThrd.Start();
+            Thread newThrd = new Thread(new ThreadStart(server.Connect));
+            Thread newThrd2 = new Thread(new ThreadStart(client.init));
+            //newThrd.Start();
+            newThrd2.Start();
         }
     }
 }

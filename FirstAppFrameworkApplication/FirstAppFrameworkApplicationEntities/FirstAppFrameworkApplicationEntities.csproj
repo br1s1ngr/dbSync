@@ -47,18 +47,32 @@
   <ItemGroup>
     <Compile Include="EDTs\CustomerEDT.cs" />
     <Compile Include="EntityClasses\Customers.cs" />
+    <Compile Include="EntityClasses\Games.cs" />
     <Compile Include="EntityClasses\Profile.cs" />
+    <Compile Include="EntityClasses\Test.cs" />
     <Compile Include="Forms\CustomersForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CustomersForm.Designer.cs">
       <DependentUpon>CustomersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\GamesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GamesForm.Designer.cs">
+      <DependentUpon>GamesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ProfilesForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ProfilesForm.Designer.cs">
       <DependentUpon>ProfilesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program_Main.cs" />
     <Compile Include="Runnables\runnablee.cs" />
@@ -73,8 +87,14 @@
     <EmbeddedResource Include="Forms\CustomersForm.resx">
       <DependentUpon>CustomersForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GamesForm.resx">
+      <DependentUpon>GamesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProfilesForm.resx">
       <DependentUpon>ProfilesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

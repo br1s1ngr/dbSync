@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -13,57 +14,54 @@ namespace TCP_Client
         public string IP { get; set; }
         public int Port { get; set; }
         // = new TcpClient();
-        List<Tuple<DateTime, string>> args;
+        List<DbConnect.DbConnect.LogTableRecord> args;
 
         public void init()
         { 
             while (true)
             {
-                args = null;
                 args = DbConnect.DbConnect.GetQueries();
                 if (args.Count > 0)
                     BeginSendingQueries();
+                args = null;
             }
         }
 
         private void BeginSendingQueries()
         {
             bool errorOccurred = false;
-            foreach (var listItem in args)
+            foreach (var record in args)
             {
                 if (errorOccurred)
-                    break; 
+                    break;
 
                 try
                 {
-                    sendQuery(listItem.Item2);
-                    updateLog(listItem);
+                    sendQuery(record.Argument);
+                    updateLog(record);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine();
                     Console.WriteLine(ex.Message);
                     Console.WriteLine();
-                    errorOccurred = true;    
+                    errorOccurred = true;
                 }
             }
         }
 
-        private void updateLog(Tuple<DateTime, string> listItem)
-        {
-            DbConnect.DbConnect dbconnect = new DbConnect.DbConnect(listItem.Item2, listItem.Item1);
-            //Thread dbThread = new Thread(new ThreadStart(dbconnect.UpdateLog));
-            //dbThread.Start();
-            dbconnect.UpdateLog();
+        private void updateLog(DbConnect.DbConnect.LogTableRecord logRecord)
+        {            
+            DbConnect.DbConnect.UpdateLog(logRecord);
             Console.WriteLine("query updated");
             Console.WriteLine("****************************");
         }
 
         public void sendQuery(string query)
         {
-            
+            //TO DO: reading from config file comes here
             //TcpClient client = new TcpClient(IP, Port);
             TcpClient client = new TcpClient("192.168.0.103", 8888);
+
             //if (client.Connected)
             //{
                 NetworkStream stream = client.GetStream();
