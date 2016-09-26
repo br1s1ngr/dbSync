@@ -10,6 +10,19 @@ namespace DbConnect
 {
     public class DbConnect
     {
+        private static string Database { get; set; }
+        private static string Server { get; set; }
+        private static string Uid { get; set; }
+        private static string Pwd { get; set; }
+
+        public static void init(string[] connectionInfo)
+        {            
+            Server = connectionInfo[0];
+            Database = connectionInfo[1];
+            Uid = connectionInfo[2];
+            Pwd = connectionInfo[3];
+        }
+
         public static void RunQuery(string sqlQuery)
         {
             //TO DO: get connection string details from file
