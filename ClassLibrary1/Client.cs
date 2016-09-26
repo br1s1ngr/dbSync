@@ -27,36 +27,28 @@ namespace TCP_Client
         // = new TcpClient();
         private static List<DbConnect.DbConnect.LogTableRecord> args;
 
-        public static void init()
+        public static void init(string[] clientConfig)
         {
             //GET IP and PORT
-            initSocketInfo();
-            begin();
-        }
-
-        private static void begin()
-        {
-            while (true)
-            {
-                DbConnect.DbConnect dbConnectObj = new DbConnect.DbConnect();
-                args = dbConnectObj.GetQueries();
-                if (args.Count > 0)
-                    BeginSendingQueries();
-                args = null;
-            }
-        }
-
-        private static void initSocketInfo()
-        {
             try
             {
-                string[] clientConfig = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\masterDbConfig.cfg");
                 IP = clientConfig[0];
                 Port = int.Parse(clientConfig[1]);
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static void Begin()
+        {
+            while (true)
+            {
+                args = DbConnect.DbConnect.GetQueries();
+                if (args.Count > 0)
+                    BeginSendingQueries();
+                args = null;
             }
         }
 
@@ -84,8 +76,7 @@ namespace TCP_Client
 
         private static void updateLog(DbConnect.DbConnect.LogTableRecord logRecord)
         {
-            DbConnect.DbConnect dbConnectObj = new DbConnect.DbConnect();
-            dbConnectObj.UpdateLog(logRecord);
+            DbConnect.DbConnect.UpdateLog(logRecord);
             Console.WriteLine("query updated");
             Console.WriteLine("****************************");
         }

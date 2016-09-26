@@ -16,25 +16,12 @@ namespace TCP_Server
 
         private static TcpListener listener;
 
-        public static void init()
-        {
-            initServerInfo();
-            Connect();
-        }
-
-
-        public static int getPort()
-        {
-            return Port;
-        }
-
-
-        private static void initServerInfo()
+        public static void init(string[] serverConfig)
         {
             try
             {
-                string[] clientConfig = System.IO.File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\slaveDbConfig.cfg");
-                Port = int.Parse(clientConfig[0]);
+
+                Port = int.Parse(serverConfig[0]);
                 //listener = new TcpListener(IPAddress.Any, 8888);
                 listener = new TcpListener(IPAddress.Any, Port);
             }
@@ -44,7 +31,12 @@ namespace TCP_Server
             }
         }
 
-        private static void Connect()
+        public static int getPort()
+        {
+            return Port;
+        }
+
+        public static void Connect()
         {            
             listener.Start();
             Console.WriteLine("Listening......");
@@ -82,8 +74,7 @@ namespace TCP_Server
                 handlerSocket = null;
                 Console.WriteLine("query recieved: " + recievedQuery);
                 Console.WriteLine();
-                DbConnect.DbConnect dbConnectObj = new DbConnect.DbConnect();
-                dbConnectObj.RunQuery(recievedQuery);
+                 DbConnect.DbConnect.RunQuery(recievedQuery);
             //dbconnect = new DbConnect.DbConnect(recievedQuery);
                 //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
                 //insertQueryThread.Start();

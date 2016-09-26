@@ -52,6 +52,10 @@
       <Project>{4a8fbf4d-4db0-47f1-b6a5-cd7d9f0ad9e3}</Project>
       <Name>TCP_Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DbConnect\DbConnect.csproj">
+      <Project>{3ac458ab-72b7-4b3d-83c3-b7fbdf0963b6}</Project>
+      <Name>DbConnect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TCP_Socket\TCP_Server.csproj">
       <Project>{89d7c5b9-8a84-4dee-8fe1-f0c87f27a36b}</Project>
       <Name>TCP_Server</Name>
