@@ -55,10 +55,10 @@ namespace TCP_Server
                 handlerSocket = null;
                 Console.WriteLine("query recieved: " + recievedQuery);
                 Console.WriteLine();
-                DbConnect.DbConnect dbconnect = new DbConnect.DbConnect(recievedQuery);
+                DbConnect.DbConnect.RunQuery(recievedQuery);
+            //dbconnect = new DbConnect.DbConnect(recievedQuery);
                 //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
                 //insertQueryThread.Start();
-                dbconnect.RunQuery();
         }
 
         

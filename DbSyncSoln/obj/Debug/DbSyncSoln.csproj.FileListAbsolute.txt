@@ -16,3 +16,12 @@ C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.csproj.GenerateResource.Cache
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.exe
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\DbSyncSoln\obj\Debug\DbSyncSoln.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\bin\Debug\DbSyncSoln.exe.config
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\bin\Debug\DbSyncSoln.exe
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\bin\Debug\DbSyncSoln.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\obj\Debug\DbSyncSoln.csprojResolveAssemblyReference.cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\obj\Debug\DbSyncSoln.Form1.resources
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\obj\Debug\DbSyncSoln.Properties.Resources.resources
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\obj\Debug\DbSyncSoln.csproj.GenerateResource.Cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\obj\Debug\DbSyncSoln.exe
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\DbSyncSoln\obj\Debug\DbSyncSoln.pdb

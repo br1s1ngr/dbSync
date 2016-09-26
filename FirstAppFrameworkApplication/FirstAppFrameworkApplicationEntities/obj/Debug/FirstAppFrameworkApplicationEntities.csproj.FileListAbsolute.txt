@@ -43,3 +43,30 @@ C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFramew
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.csproj.GenerateResource.Cache
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\FirstAppFrameworkApplicationEntities.dll
+<<<<<<< HEAD
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\FirstAppFrameworkApplicationEntities.pdb
+=======
+>>>>>>> client
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\MySql.Data.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\NPOI.OOXML.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\NPOI.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\AppFramework.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.csprojResolveAssemblyReference.cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.CustomersForm.resources
+<<<<<<< HEAD
+=======
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.GamesForm.resources
+>>>>>>> client
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.ProfilesForm.resources
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.csproj.GenerateResource.Cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.pdb
+<<<<<<< HEAD
+=======
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\FirstAppFrameworkApplicationEntities.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.TestForm.resources
+>>>>>>> client

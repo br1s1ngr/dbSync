@@ -12,3 +12,10 @@ C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\MySQLConsoleTe
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\MySQLConsoleTestApp\obj\Debug\MySQLConsoleTestApp.csprojResolveAssemblyReference.cache
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\MySQLConsoleTestApp\obj\Debug\MySQLConsoleTestApp.exe
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\MySQLConsoleTestApp\obj\Debug\MySQLConsoleTestApp.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\bin\Debug\MySQLConsoleTestApp.exe.config
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\bin\Debug\MySQLConsoleTestApp.exe
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\bin\Debug\MySQLConsoleTestApp.pdb
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\bin\Debug\MySql.Data.dll
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\obj\Debug\MySQLConsoleTestApp.csprojResolveAssemblyReference.cache
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\obj\Debug\MySQLConsoleTestApp.exe
+C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\MySQLConsoleTestApp\obj\Debug\MySQLConsoleTestApp.pdb
