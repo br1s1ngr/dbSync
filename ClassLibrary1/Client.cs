@@ -70,7 +70,7 @@ namespace TCP_Client
                         connectClient();
                     }
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
                 queries = null;
             }
         }
@@ -109,7 +109,7 @@ namespace TCP_Client
                 bytesRecieved = stream.Read(bytes, 0, bytes.Length);
                 listBYtes.AddRange(bytes.Take(bytesRecieved));
             } while (stream.DataAvailable);
-            //stream.Close();
+          //stream.Close();
             string msg = Encoding.ASCII.GetString(listBYtes.ToArray());
             if (msg == "recieved")
             {

@@ -15,6 +15,8 @@ namespace DbConnect
         private static string Uid { get; set; }
         private static string Pwd { get; set; }
 
+        static string prevQuery;
+
         public static void init(string[] connectionInfo)
         {            
             Server = connectionInfo[0];
@@ -23,16 +25,41 @@ namespace DbConnect
             Pwd = connectionInfo[3];
         }
 
-        public static void RunQuery(string sqlQuery)
+        public static bool RunQuery(string sqlQuery)
         {
             //TO DO: get connection string details from file
+            int i = 0;
             string connString = "server=localhost; database=dbsynctest; uid=root; password='';";
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
                 MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
                 conn.Open();
-                int i = cmd.ExecuteNonQuery();
-                conn.Close();
+                
+                try
+                {
+                    i = cmd.ExecuteNonQuery();
+                    prevQuery = "";
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        prevQuery += sqlQuery;
+                        cmd = new MySqlCommand(prevQuery, conn);
+                        i = cmd.ExecuteNonQuery();
+
+                        prevQuery = "";
+                    }
+                    catch (Exception ex_II)
+                    { }
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                if (i > 0)
+                    return true;
+                return false;
             }
         }
 
