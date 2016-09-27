@@ -102,7 +102,7 @@ namespace TCP_Client
                 bytesRecieved = stream.Read(bytes, 0, bytes.Length);
                 listBYtes.AddRange(bytes.Take(bytesRecieved));
             } while (bytesRecieved != 0);
-            stream.Close();
+            //stream.Close();
             string msg = Encoding.ASCII.GetString(listBYtes.ToArray());
             if (msg == "recieved")
                 return true;
@@ -127,7 +127,7 @@ namespace TCP_Client
                 byte[] queryAsBytes = Encoding.ASCII.GetBytes(query);
                 stream.Write(queryAsBytes, 0, queryAsBytes.Length);
                 stream.Flush();
-                stream.Close();
+                //stream.Close();
                 
             //    client.GetStream();
 

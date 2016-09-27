@@ -14,6 +14,7 @@ namespace TCP_Server
     {
         private static int Port { get; set; }
         private static TcpListener listener;
+        static NetworkStream stream;
 
         public static void init(string[] serverConfig)
         {
@@ -21,12 +22,20 @@ namespace TCP_Server
             {
                 Port = int.Parse(serverConfig[0]);
                 //listener = new TcpListener(IPAddress.Any, 8888);
-                listener = new TcpListener(IPAddress.Any, Port);
+                server_listen();
             }
             catch (Exception ex)
             {
-                throw ex;
+                //throw ex;
             }
+        }
+
+        private static void server_listen()
+        {
+            listener = new TcpListener(IPAddress.Any, Port);
+            listener.Start(-1);
+            //stream = new NetworkStream(listener.AcceptSocket());
+
         }
 
         public static int getPort()
@@ -38,41 +47,57 @@ namespace TCP_Server
         {            
             listener.Start();
             Console.WriteLine("Listening......");
+            Console.WriteLine();
+
+            Socket socket = listener.AcceptSocket();
+
             while (true)
             {
-                Socket handlerSocket = listener.AcceptSocket();
+                //Socket handlerSocket = listener.AcceptSocket();
 //                NetworkStream s = handlerSocket.Acc
-                if (handlerSocket.Connected)
+                //if (handlerSocket.Connected)
+                //{
+
+                if (socket.Connected)
+                    stream = new NetworkStream(socket);
+                try
                 {
-                    acceptQuery(handlerSocket);
+                    acceptQuery();
                     //Console.WriteLine("*****************");
                     //Thread thread = new Thread(new ThreadStart(acceptQuery));
                     //thread.Start();
-                    sendResponse(handlerSocket);
+                    //sendResponse();
                 }
+                catch (Exception ex)
+                {
+
+                }
+                //}
             }
         }
 
-        private static void sendResponse(Socket handlerSocket)
+        private static void sendResponse()
         {
-            NetworkStream stream = new NetworkStream(handlerSocket);
+            Console.WriteLine("sending response");
             byte[] msg = Encoding.ASCII.GetBytes("recieved");
             //handlerSocket.Send(msg);
             stream.Write(msg, 0, msg.Length);
             stream.Flush();
-            stream.Close();
+            //stream.Close();
         }
 
-        private static void acceptQuery(Socket handlerSocket)
+        private static void acceptQuery()
         {
             //Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
-            NetworkStream stream = new NetworkStream(handlerSocket);
+            //long x = stream.Length;
+            //stream = new NetworkStream(listener.Server);
 
             int thisRead = 0;
             int blockSize = 1024;
             List<byte> listBytes = new List<byte>();
             byte[] databyte = new byte[blockSize];
-            while (true)
+
+            while (stream.DataAvailable)
             {
                 thisRead = stream.Read(databyte, 0, blockSize);
                 listBytes.AddRange(databyte.Take(thisRead));
@@ -80,16 +105,19 @@ namespace TCP_Server
                     break;
             }
                 string recievedQuery = Encoding.ASCII.GetString(listBytes.ToArray());
-                handlerSocket = null;
-                Console.WriteLine("query recieved: " + recievedQuery);
-                Console.WriteLine();
-                 DbConnect.DbConnect.RunQuery(recievedQuery);
+               
+                if (!String.IsNullOrWhiteSpace(recievedQuery))
+                {
+                    Console.WriteLine("query recieved: " + recievedQuery);
+                    Console.WriteLine();
+
+                    if (DbConnect.DbConnect.RunQuery(recievedQuery))
+                        sendResponse();
+                }
             //dbconnect = new DbConnect.DbConnect(recievedQuery);
                 //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
                 //insertQueryThread.Start();
-                 stream.Close();
-        }
-
-        
+                // stream.Close();
+        }        
     }
 }
