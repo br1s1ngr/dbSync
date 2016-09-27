@@ -76,48 +76,7 @@ namespace FirstAppFrameworkApplicationEntities
             Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Games", typeof(FirstAppFrameworkApplicationEntities.Forms.GamesForm)));
             Navigation.RootMenu.Children[Navigation.RootMenu.Children.Count - 1].Children.Add(new NavigationMenu("Test", typeof(FirstAppFrameworkApplicationEntities.Forms.TestForm)));
         }
-
-        public void setupServer(bool changeDB = false)
-        {
-            //throw new NotImplementedException();
-            setup();
-
-            changeDb = changeDB;
-
-            if (!changeDB)
-            {
-                String[] configLines = File.ReadAllLines(Application.StartupPath + "\\serverconfig.cfg");
-                AppSettings.DefaultConnectionParameters = new String[] { configLines[0], configLines[1], configLines[2], configLines[3] };
-
-                AppSettings.QueryTimeOut = configLines.Length >= 7 ? int.Parse(configLines[5]) : AppSettings.QueryTimeOut;
-                AppSettings.MaxRecordLevelSecurityCacheAge = new TimeSpan(0, 5, 0);
-                MySqlDatabaseHandler dbHandler = new MySqlDatabaseHandler();
-            }
-            else
-            {
-                String[] configLines = File.ReadAllLines(Application.StartupPath + "\\serverconfig1.cfg");
-                AppSettings.DefaultConnectionParameters = new String[] { configLines[0], configLines[1], configLines[2], configLines[3] };
-
-                AppSettings.QueryTimeOut = configLines.Length >= 7 ? int.Parse(configLines[5]) : AppSettings.QueryTimeOut;
-                AppSettings.MaxRecordLevelSecurityCacheAge = new TimeSpan(0, 5, 0);
-                MySqlDatabaseHandler dbHandler = new MySqlDatabaseHandler(configLines);
-            }
-            //if (configLines.Length > 6)
-            //{
-            //    AppSettings.CompanyName = configLines[6];
-            //}
-
-            //int port;
-            //if (configLines.Length >= 9 && int.TryParse(configLines[8], out port))
-            //{
-            //    AppSettings.Servers.Add(new AppSettings.ServerIPAndPort("", port));
-            //}
-
-            //AppSettings.QueryTimeOut = configLines.Length >= 7 ? int.Parse(configLines[5]) : AppSettings.QueryTimeOut;
-            //AppSettings.MaxRecordLevelSecurityCacheAge = new TimeSpan(0, 5, 0);
-            //MySqlDatabaseHandler dbHandler = new MySqlDatabaseHandler();
-        }
-
+        
         public override void setupServer()
         {
             //throw new NotImplementedException();
@@ -143,24 +102,6 @@ namespace FirstAppFrameworkApplicationEntities
                 DatabaseHandler.DefaultDatabaseHandlerObject = dbHandler;
                 MySqlDatabaseHandler.DefaultDatabaseHandlerObject = dbHandler;
             }
-
-            //String[] configLines = File.ReadAllLines(Application.StartupPath + "\\serverconfig.cfg");
-            //    AppSettings.DefaultConnectionParameters = new String[] { configLines[0], configLines[1], configLines[2], configLines[3] };
-
-            ////if (configLines.Length > 6)
-            ////{
-            ////    AppSettings.CompanyName = configLines[6];
-            ////}
-
-            ////int port;
-            ////if (configLines.Length >= 9 && int.TryParse(configLines[8], out port))
-            ////{
-            ////    AppSettings.Servers.Add(new AppSettings.ServerIPAndPort("", port));
-            ////}
-
-            //AppSettings.QueryTimeOut = configLines.Length >= 7 ? int.Parse(configLines[5]) : AppSettings.QueryTimeOut;
-            //AppSettings.MaxRecordLevelSecurityCacheAge = new TimeSpan(0, 5, 0);
-            //MySqlDatabaseHandler dbHandler = new MySqlDatabaseHandler();
         }
 
         public static void setup()
@@ -179,8 +120,6 @@ namespace FirstAppFrameworkApplicationEntities
         public override void setupODataService()
         {
             throw new NotImplementedException();
-        }
-
-       
+        }       
     }
 }

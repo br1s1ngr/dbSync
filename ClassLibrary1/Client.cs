@@ -91,6 +91,7 @@ namespace TCP_Client
                 NetworkStream stream = client.GetStream();
                 byte[] queryAsBytes = Encoding.ASCII.GetBytes(query);
                 stream.Write(queryAsBytes, 0, queryAsBytes.Length);
+            stream
                 stream.Close();
 
                 Console.WriteLine("query sent: " + query);

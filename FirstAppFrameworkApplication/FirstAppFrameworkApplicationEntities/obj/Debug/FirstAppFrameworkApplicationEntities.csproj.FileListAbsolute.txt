@@ -57,16 +57,9 @@ C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\First
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\AppFramework.pdb
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.csprojResolveAssemblyReference.cache
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.CustomersForm.resources
-<<<<<<< HEAD
-=======
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.GamesForm.resources
->>>>>>> client
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.ProfilesForm.resources
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.csproj.GenerateResource.Cache
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.dll
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.pdb
-<<<<<<< HEAD
-=======
-C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\bin\Debug\FirstAppFrameworkApplicationEntities.pdb
 C:\Users\Todays Solutions\Documents\Visual Studio 2013\Projects\New folder\FirstAppFrameworkApplication\FirstAppFrameworkApplicationEntities\obj\Debug\FirstAppFrameworkApplicationEntities.Forms.TestForm.resources
->>>>>>> client
