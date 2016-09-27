@@ -41,12 +41,26 @@ namespace TCP_Server
             while (true)
             {
                 Socket handlerSocket = listener.AcceptSocket();
+//                NetworkStream s = handlerSocket.Acc
                 if (handlerSocket.Connected)
+                {
                     acceptQuery(handlerSocket);
-                //Console.WriteLine("*****************");
-                //Thread thread = new Thread(new ThreadStart(acceptQuery));
-                //thread.Start();
+                    //Console.WriteLine("*****************");
+                    //Thread thread = new Thread(new ThreadStart(acceptQuery));
+                    //thread.Start();
+                    sendResponse(handlerSocket);
+                }
             }
+        }
+
+        private static void sendResponse(Socket handlerSocket)
+        {
+            NetworkStream stream = new NetworkStream(handlerSocket);
+            byte[] msg = Encoding.ASCII.GetBytes("recieved");
+            //handlerSocket.Send(msg);
+            stream.Write(msg, 0, msg.Length);
+            stream.Flush();
+            stream.Close();
         }
 
         private static void acceptQuery(Socket handlerSocket)
@@ -73,6 +87,7 @@ namespace TCP_Server
             //dbconnect = new DbConnect.DbConnect(recievedQuery);
                 //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
                 //insertQueryThread.Start();
+                 stream.Close();
         }
 
         
