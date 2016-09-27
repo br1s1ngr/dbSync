@@ -13,14 +13,12 @@ namespace TCP_Server
     public static class Server
     {
         private static int Port { get; set; }
-
         private static TcpListener listener;
 
         public static void init(string[] serverConfig)
         {
             try
             {
-
                 Port = int.Parse(serverConfig[0]);
                 //listener = new TcpListener(IPAddress.Any, 8888);
                 listener = new TcpListener(IPAddress.Any, Port);
@@ -43,12 +41,26 @@ namespace TCP_Server
             while (true)
             {
                 Socket handlerSocket = listener.AcceptSocket();
+//                NetworkStream s = handlerSocket.Acc
                 if (handlerSocket.Connected)
+                {
                     acceptQuery(handlerSocket);
-                //Console.WriteLine("*****************");
-                //Thread thread = new Thread(new ThreadStart(acceptQuery));
-                //thread.Start();
+                    //Console.WriteLine("*****************");
+                    //Thread thread = new Thread(new ThreadStart(acceptQuery));
+                    //thread.Start();
+                    sendResponse(handlerSocket);
+                }
             }
+        }
+
+        private static void sendResponse(Socket handlerSocket)
+        {
+            NetworkStream stream = new NetworkStream(handlerSocket);
+            byte[] msg = Encoding.ASCII.GetBytes("recieved");
+            //handlerSocket.Send(msg);
+            stream.Write(msg, 0, msg.Length);
+            stream.Flush();
+            stream.Close();
         }
 
         private static void acceptQuery(Socket handlerSocket)
@@ -62,15 +74,12 @@ namespace TCP_Server
             byte[] databyte = new byte[blockSize];
             while (true)
             {
-                //handlerSocket.Receive(databyte);
                 thisRead = stream.Read(databyte, 0, blockSize);
-                listBytes.AddRange(databyte.AsEnumerable());
+                listBytes.AddRange(databyte.Take(thisRead));
                 if (thisRead == 0)
                     break;
             }
-            //var xxx = bytes.ToArray(typeof(byte));
                 string recievedQuery = Encoding.ASCII.GetString(listBytes.ToArray());
-
                 handlerSocket = null;
                 Console.WriteLine("query recieved: " + recievedQuery);
                 Console.WriteLine();
@@ -78,7 +87,7 @@ namespace TCP_Server
             //dbconnect = new DbConnect.DbConnect(recievedQuery);
                 //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
                 //insertQueryThread.Start();
-
+                 stream.Close();
         }
 
         
