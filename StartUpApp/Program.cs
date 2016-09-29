@@ -17,8 +17,11 @@ namespace StartUpApp
 
             initDB();
             //initClient();
-            initServer();          
-            
+            initServer();
+
+            Thread copyLogThread = new Thread(new ThreadStart(CopyLog));
+            copyLogThread.Start();
+
             Thread newThrd = new Thread(new ThreadStart(TCP_Server.Server.Connect));
             //Thread newThrd2 = new Thread(new ThreadStart(TCP_Client.Client.Begin));
             newThrd.Start();
@@ -47,5 +50,20 @@ namespace StartUpApp
             string[] serverconfig = System.IO.File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\slaveDbConfig.cfg");
             TCP_Server.Server.init(serverconfig);
         }
+
+        private static void CopyLog()
+        {
+            while (true)
+            {
+                List<DbConnect.DbConnect.LogTableRecord> general_log_queries = DbConnect.DbConnect.GetQueriesFromGeneral();
+
+                foreach (DbConnect.DbConnect.LogTableRecord item in general_log_queries)
+                {
+                    DbConnect.DbConnect.InsertQueryIntoClientLog(item);
+                    DbConnect.DbConnect.UpdateGeneralLog(item);
+                }
+            }
+        }
+
     }
 }
