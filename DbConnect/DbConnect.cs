@@ -34,26 +34,7 @@ namespace DbConnect
             {
                 MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
                 conn.Open();
-
-                //try
-                //{
-                //    i = cmd.ExecuteNonQuery();
-                //    prevQuery = "";
-                //}
-                //catch (Exception ex)
-                //{
-                //    try
-                //    {
-                //        prevQuery += sqlQuery;
-                //        cmd = new MySqlCommand(prevQuery, conn);
-                //        i = cmd.ExecuteNonQuery();
-
-                //        prevQuery = "";
-                //    }
-                //    catch (Exception ex_II)
-                //    { }
-                //}
-                try
+               try
                 {
                     cmd.ExecuteNonQuery();
                     conn.Close();
@@ -73,13 +54,13 @@ namespace DbConnect
             }
         }
 
-        public static List<LogTableRecord> GetQueries()
+        public static List<LogTableRecord> GetQueriesFromGeneral()
         {
             List<LogTableRecord> queryList = new List<LogTableRecord>();
             //TO DO: get connection string details from file
             string connString = "server=localhost; database=mysql; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = " select * from general_log where argument NOT like '%mysql%' and argument NOT like '%general_log%' and uploaded = 0 and (argument like 'update%' or argument like 'insert%' or argument like 'delete%' or argument like 'create%' or argument like 'drop%' or argument like 'alter%' or argument like 'rename%' or argument like 'truncate%'); ";
+            string query = " select * from general_log where argument NOT like '%mysql%' and argument NOT like '%general_log%' and copied = 0 and (argument like 'update%' or argument like 'insert%' or argument like 'delete%' or argument like 'create%' or argument like 'drop%' or argument like 'alter%' or argument like 'rename%' or argument like 'truncate%' or argument like '%transaction%'); ";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
             DataSet ds = new DataSet();
@@ -87,57 +68,176 @@ namespace DbConnect
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                string arg = row.ItemArray[5].ToString();
                 DateTime eventTime = (DateTime)row.ItemArray[0];
+                string userHost = row.ItemArray[1].ToString();
                 string thread = row.ItemArray[2].ToString();
                 string server = row.ItemArray[3].ToString();
-                queryList.Add(new LogTableRecord(eventTime, arg, thread, server));
+                string arg = row.ItemArray[5].ToString();
+                queryList.Add(new LogTableRecord(eventTime, userHost, arg, thread, server));
             }
             return queryList;
         }
 
-        public static void UpdateLog(LogTableRecord record)
-        {
-            //TO DO: get connection string details from file
-            string connString = "server=localhost; database=mysql; uid=root; password='';";
-            using (MySqlConnection conn = new MySqlConnection(connString))
-            {
-                string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
-                string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
-                query += "update mysql.general_log_temp set uploaded=true where  event_time = '" + time + "' and thread_id = '" + record.ThreadID + "' and server_id = '" + record.ServerID + "';";
-                query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
-                Console.WriteLine("**********************************");
-                Console.WriteLine("running query to update log: " + query);
-                Console.WriteLine("**********************************");
+        //public static void UpdateGeneralLog(LogTableRecord record)
+        //{
+        //    //TO DO: get connection string details from file
+        //    string connString = "server=localhost; database=mysql; uid=root; password='';";
+        //    using (MySqlConnection conn = new MySqlConnection(connString))
+        //    {
+        //        string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
+        //        string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
+        //        query += "update mysql.general_log_temp set uploaded=true where  event_time = '" + time + "' and thread_id = '" + record.ThreadID + "' and server_id = '" + record.ServerID + "';";
+        //        query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
+        //        Console.WriteLine("**********************************");
+        //        Console.WriteLine("running query to update log: " + query);
+        //        Console.WriteLine("**********************************");
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                conn.Open();
+        //        MySqlCommand cmd = new MySqlCommand(query, conn);
+        //        conn.Open();
+        //        cmd.ExecuteNonQuery();
+        //        conn.Close();
+        //    }
+        //}
+
+        public static void UpdateGeneralLog(LogTableRecord record)
+        {
+            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+            string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
+            string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
+            query += "update mysql.general_log_temp set uploaded=true where  event_time = @time and thread_id = @threadID and server_id = @serverID and argument = @arg and user_host=@user;";
+            query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
+        
+            Console.WriteLine("**********************************");
+            Console.WriteLine("running query to update log: " + query);
+            Console.WriteLine("**********************************");
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@arg", record.Argument);
+            cmd.Parameters.AddWithValue("@threadID", record.ThreadID);
+            cmd.Parameters.AddWithValue("@serverID", record.ServerID);
+            cmd.Parameters.AddWithValue("@time", record.EventTime);
+            cmd.Parameters.AddWithValue("@user", record.UserHost);
+
+            conn.Open();
+            try
+            {
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+            catch (Exception ex)
+            {
+                conn.Close();
+                throw ex;
+            }
         }
 
-        public static bool SaveTimeHashSuccess(string eventTime, string hash)
+        public static void SaveTimeHashSuccess(string eventTime, string hash)
         {
             //TryCreateServerLogDb();
-            int i = 0;
             string connString = "server=localhost; database=server_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = "insert into server_db.log (event_time) values (," + eventTime + "' , '" + hash + "');";
+            string query = "insert into server_db.log  values ('" + eventTime + "' , '" + hash + "');";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             try
             {
                 conn.Open();
-                i = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+                conn.Close();
             }
             catch (Exception ex)
-            { }
-            finally
-            { conn.Close(); }
-
-            if (i > 0) return true;
-            return false;
+            {
+                conn.Close();
+                throw ex;
+            }
         }
+
+        public static void SaveQueryID(int id)
+        {
+            //TryCreateServerLogDb();
+            string connString = "server=localhost; database=server_db; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+            string query = "insert into server_db.log  values (" + id + ");";
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                throw ex;
+            }
+        }
+                
+        public static void InsertQueryIntoClientLog(LogTableRecord record)
+        {
+            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+
+            MySqlCommand cmd = new MySqlCommand("insert into client_log values (@event_time, @user_host, @thread_id, @server_id, @argument);", conn);
+            cmd.Parameters.AddWithValue("@event_time", record.EventTime);
+            cmd.Parameters.AddWithValue("@user_host", record.UserHost);
+            cmd.Parameters.AddWithValue("@thread_id", record.ThreadID);
+            cmd.Parameters.AddWithValue("@server_id", record.ServerID);
+            cmd.Parameters.AddWithValue("@argument", record.Argument);
+
+            conn.Open();
+            try
+            {
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                throw ex;
+            }
+        }
+
+        public static List<ClientLogTableRecord> GetQueriesFromClientLog()
+        {
+            List<ClientLogTableRecord> queryList = new List<ClientLogTableRecord>();
+            //TO DO: get connection string details from file
+            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+            string query = " select * from general_log where uploaded = 0; ";
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                int id = (int)row.ItemArray[0];
+                string arg = row.ItemArray[5].ToString();
+                queryList.Add(new ClientLogTableRecord(arg, id));
+            }
+            return queryList;
+        }
+
+        public static void UpdateRecordInClientLog(int id)
+        {
+            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd = new MySqlCommand("update client_log set uploaded = 1 where id = @id", conn);
+            cmd.Parameters.AddWithValue("@id", id);
+            conn.Open();
+            try
+            {
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                throw ex;
+            }
+        }
+
+
 
 
         public class LogTableRecord
@@ -147,16 +247,29 @@ namespace DbConnect
                 Argument = query;
             }
 
-            public LogTableRecord(DateTime time, string query, string thread, string server)
+            public LogTableRecord(DateTime time, string userHost, string query, string thread, string server)
             {
-                Argument = query; EventTime = time; ThreadID = thread; ServerID = server;
+                Argument = query; EventTime = time; ThreadID = thread; ServerID = server; UserHost = userHost;
             }
 
             public DateTime EventTime { get; set; }
             public string ThreadID { get; set; }
             public string ServerID { get; set; }
             public string Argument { get; set; }
+            public string UserHost { get; set; }
         }
 
+
+        public class ClientLogTableRecord
+        {
+            public string Query { get; set; }
+            public int ID { get; set; }
+
+            public ClientLogTableRecord(string query, int id)
+            {
+                Query = query;
+                ID = id;
+            }
+        }
     }
 }
