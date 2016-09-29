@@ -1,0 +1,29 @@
+slave db
+``````
+- create the log db and table 
+	create database if not exists server_db;	
+	use server_db;
+	create table query_log (query_id int not null primary key);
+
+-- export db from client.
+
+
+master db
+``````
+- turn on logging 
+	set logging on in file and in code;
+	SET global general_log = 1;
+	SET global log_output = 'table';
+
+- recreate log table for master db
+	create database client_db;
+	use client_db;
+	CREATE TABLE IF NOT EXISTS `client_db` (
+	id int not null auto_increment primary key,
+	event_time timestamp NOT NULL,
+	user_host mediumtext NOT NULL,
+	thread_id int(11) NOT NULL,
+	server_id int(10) unsigned NOT NULL,
+	argument mediumtext NOT NULL,
+	uploaded bool 
+	);

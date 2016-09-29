@@ -132,30 +132,30 @@ namespace DbConnect
             }
         }
 
-        public static void SaveTimeHashSuccess(string eventTime, string hash)
-        {
-            string connString = "server=localhost; database=server_db; uid=root; password='';";
-            MySqlConnection conn = new MySqlConnection(connString);
-            string query = "insert into server_db.log  values ('" + eventTime + "' , '" + hash + "');";
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            try
-            {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                conn.Close();
-                throw ex;
-            }
-        }
+        //public static void SaveTimeHashSuccess(string eventTime, string hash)
+        //{
+        //    string connString = "server=localhost; database=server_db; uid=root; password='';";
+        //    MySqlConnection conn = new MySqlConnection(connString);
+        //    string query = "insert into server_db.log  values ('" + eventTime + "' , '" + hash + "');";
+        //    MySqlCommand cmd = new MySqlCommand(query, conn);
+        //    try
+        //    {
+        //        conn.Open();
+        //        cmd.ExecuteNonQuery();
+        //        conn.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        conn.Close();
+        //        throw ex;
+        //    }
+        //}
 
         public static void SaveQueryID(int id)
         {
             string connString = "server=localhost; database=server_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = "insert into server_db.log  values (" + id + ");";
+            string query = "insert into server_db.query_log  values (" + id + ");";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             try
             {
@@ -175,7 +175,7 @@ namespace DbConnect
             //TryCreateServerLogDb();
             string connString = "server=localhost; database=server_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = "select count(*) from server_db.log where query_id = " + id + ";";
+            string query = "select count(*) from server_db.query_log where query_id = " + id + ";";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             try
             {
@@ -194,10 +194,10 @@ namespace DbConnect
 
         public static void InsertQueryIntoClientLog(LogTableRecord record)
         {
-            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            string connString = "server=localhost; database=client_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
 
-            MySqlCommand cmd = new MySqlCommand("insert into client_log values (@event_time, @user_host, @thread_id, @server_id, @argument);", conn);
+            MySqlCommand cmd = new MySqlCommand("insert into client_db (event_time, user_host, thread_id, server_id, argument) values (@event_time, @user_host, @thread_id, @server_id, @argument);", conn);
             cmd.Parameters.AddWithValue("@event_time", record.EventTime);
             cmd.Parameters.AddWithValue("@user_host", record.UserHost);
             cmd.Parameters.AddWithValue("@thread_id", record.ThreadID);
@@ -221,9 +221,9 @@ namespace DbConnect
         {
             List<ClientLogTableRecord> queryList = new List<ClientLogTableRecord>();
             //TO DO: get connection string details from file
-            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            string connString = "server=localhost; database=client_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = " select * from general_log where uploaded = 0; ";
+            string query = " select * from client_db where uploaded = 0; ";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
             DataSet ds = new DataSet();
@@ -240,9 +240,9 @@ namespace DbConnect
 
         public static void UpdateRecordInClientLog(int id)
         {
-            string connString = "server=localhost; database=mysql; uid=root; password='';";
+            string connString = "server=localhost; database=client_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            MySqlCommand cmd = new MySqlCommand("update client_log set uploaded = 1 where id = @id", conn);
+            MySqlCommand cmd = new MySqlCommand("update client_db set uploaded = 1 where id = @id", conn);
             cmd.Parameters.AddWithValue("@id", id);
             conn.Open();
             try
