@@ -117,27 +117,49 @@ namespace DbConnect
             }
         }
 
-        public static bool SaveTimeHashSuccess(string eventTime, string hash)
+        public static void SaveTimeHashSuccess(string eventTime, string hash)
         {
             //TryCreateServerLogDb();
             int i = 0;
             string connString = "server=localhost; database=server_db; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = "insert into server_db.log (event_time) values (," + eventTime + "' , '" + hash + "');";
+            string query = "insert into server_db.log (event_time) values (,'" + eventTime + "' , '" + hash + "');";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             try
             {
                 conn.Open();
                 i = cmd.ExecuteNonQuery();
+                conn.Close();
             }
             catch (Exception ex)
-            { }
-            finally
-            { conn.Close(); }
-
-            if (i > 0) return true;
-            return false;
+            {
+                conn.Close();
+                throw ex;
+            }
         }
+
+        public static bool QueryInLog(string eventTime, string hash)
+        {
+            //TryCreateServerLogDb();
+            string connString = "server=localhost; database=server_db; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+            string query = "select count(*) from server_db.log where event_time = '" + eventTime + "' and hash = '" + hash + "';";
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            try
+            {
+                conn.Open();
+                string xx = cmd.ExecuteScalar().ToString();
+                int i = int.Parse(xx);
+                conn.Close();
+                return (i > 0) ? true : false;
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                throw ex;
+            }
+        }
+
 
 
         public class LogTableRecord

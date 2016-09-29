@@ -20,6 +20,9 @@ namespace TCP_Server
         static string delimeter = "_end_";
         static string storage;
         static List<string> query_time;// = new string[2];
+        static string query;
+        static string hash;
+        static string time;
 
         static TcpListener listener;
 
@@ -71,8 +74,8 @@ namespace TCP_Server
                 //if (handlerSocket.Connected)
                 //{
 
-                if (socket.Connected)
-                {
+                //if (socket.Connected)
+                //{
                     //stream = new NetworkStream(socket);
                     try
                     {
@@ -81,18 +84,19 @@ namespace TCP_Server
                         //Thread thread = new Thread(new ThreadStart(acceptQuery));
                         //thread.Start();
                         //sendResponse();
+                        
+                        //socket.Shutdown(SocketShutdown.Both);
                     }
                     catch (Exception ex)
                     {
                     }
-                }
+                //}
                 //}
             }
         }
 
         private static void sendResponse(Socket socket)
         {
-            Console.WriteLine("sending response");
             //byte[] msg = Encoding.ASCII.GetBytes("recieved");
             ////handlerSocket.Send(msg);
             //stream.Write(msg, 0, msg.Length);
@@ -100,6 +104,7 @@ namespace TCP_Server
             //stream.Close();
 
             socket.Send(code.GetBytes(delimeter));
+            Console.WriteLine("sending response");
         }
 
         private static void acceptQuery(Socket socket)
@@ -113,7 +118,10 @@ namespace TCP_Server
             byte[] rgb = new byte[8192];
 
             while ((byteCount = socket.Receive(rgb)) > 0)
+            {
                 recieveBytes(rgb, byteCount);
+                if (query_time.Count == 2) break;
+            }
 
             //    thisRead = stream.Read(rgb, 0, blockSize);
             //    listBytes.AddRange(rgb.Take(thisRead));
@@ -121,18 +129,24 @@ namespace TCP_Server
             //        break;
             //}
 
-            if (runQuery())
-                sendResponse(socket);
+            defineItems();
+            if (!DbConnect.DbConnect.QueryInLog(time, hash))
+                runQuery();
+            sendResponse(socket);
+        }
+
+        
+        private static void defineItems()
+        {
+            query = query_time.ElementAt(0);
+            time = query_time.ElementAt(1);
+            hash = getQueryHash(query);
         }
 
         private static bool runQuery()
         {
             try
-            {
-                string query = query_time.ElementAt(0);
-                string time = query_time.ElementAt(1);
-                string hash = getQueryHash(query);
-
+            {                
                 DbConnect.DbConnect.RunQuery(query);
                 DbConnect.DbConnect.SaveTimeHashSuccess(time, hash);
                 return true;

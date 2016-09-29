@@ -47,10 +47,8 @@ C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFramew
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AppFramework.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\FirstAppFrameworkApplicationEntities.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\MySql.Data.dll
-C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\AxInterop.AcroPDFLib.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OOXML.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.dll
-C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\Interop.AcroPDFLib.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXmlFormats.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\NPOI.OpenXml4Net.dll
 C:\Users\Olawale\Documents\Visual Studio 2013\Projects\DbSyncSoln\FirstAppFrameworkApplication\FirstAppFrameworkApplication\bin\Debug\ICSharpCode.SharpZipLib.dll
