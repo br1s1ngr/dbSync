@@ -19,8 +19,8 @@ namespace StartUpApp
             //initClient();
             initServer();
 
-            Thread copyLogThread = new Thread(new ThreadStart(CopyLog));
-            copyLogThread.Start();
+            //Thread copyLogThread = new Thread(new ThreadStart(CopyLog));
+            //copyLogThread.Start();
 
             Thread newThrd = new Thread(new ThreadStart(TCP_Server.Server.Connect));
             //Thread newThrd2 = new Thread(new ThreadStart(TCP_Client.Client.Begin));

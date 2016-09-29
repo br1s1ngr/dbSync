@@ -132,14 +132,17 @@ namespace TCP_Server
 
             defineParameters();
             if (!DbConnect.DbConnect.QueryInLog(ID))
+            {
                 runQuery();
+                DbConnect.DbConnect.SaveQueryID(ID);
+            }
             sendResponse(socket);
         }
 
         private static void defineParameters()
         {
             ID = int.Parse(query_time.ElementAt(0));
-            string query = query_time.ElementAt(1);
+            query = query_time.ElementAt(1);
         }
 
         private static bool runQuery()
