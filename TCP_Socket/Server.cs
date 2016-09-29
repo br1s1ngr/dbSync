@@ -64,18 +64,17 @@ namespace TCP_Server
             Console.WriteLine("Listening......");
             Console.WriteLine();
 
-            //Socket socket = listener.AcceptSocket();
-            Socket socket = serverSocket.Accept();
-
-            while (true)
+            do
             {
-                //Socket handlerSocket = listener.AcceptSocket();
-                //                NetworkStream s = handlerSocket.Acc
-                //if (handlerSocket.Connected)
-                //{
+                //Socket socket = listener.AcceptSocket();
+                Socket socket = serverSocket.Accept();
 
-                //if (socket.Connected)
-                //{
+                while (true)
+                {
+                    //Socket handlerSocket = listener.AcceptSocket();
+                    //                NetworkStream s = handlerSocket.Acc
+                    //if (handlerSocket.Connected)
+                    //{
                     //stream = new NetworkStream(socket);
                     try
                     {
@@ -89,10 +88,12 @@ namespace TCP_Server
                     }
                     catch (Exception ex)
                     {
+                        break;
                     }
-                //}
-                //}
-            }
+                    //}
+                    //}
+                }
+            } while (true);
         }
 
         private static void sendResponse(Socket socket)
@@ -103,8 +104,8 @@ namespace TCP_Server
             //stream.Flush();
             //stream.Close();
 
-            socket.Send(code.GetBytes(delimeter));
             Console.WriteLine("sending response");
+            socket.Send(code.GetBytes(ID + delimeter));
         }
 
         private static void acceptQuery(Socket socket)
@@ -129,26 +130,26 @@ namespace TCP_Server
             //        break;
             //}
 
-            defineItems();
-            if (!DbConnect.DbConnect.QueryInLog(time, hash))
+            defineParameters();
+            if (!DbConnect.DbConnect.QueryInLog(ID))
                 runQuery();
             sendResponse(socket);
         }
 
-        
-        private static void defineItems()
+        private static void defineParameters()
         {
-            query = query_time.ElementAt(0);
-            time = query_time.ElementAt(1);
-            hash = getQueryHash(query);
+            ID = int.Parse(query_time.ElementAt(0));
+            string query = query_time.ElementAt(1);
         }
 
         private static bool runQuery()
         {
             try
-            {                
+            {
+                //string hash = getQueryHash(query);
                 DbConnect.DbConnect.RunQuery(query);
-                DbConnect.DbConnect.SaveTimeHashSuccess(time, hash);
+                //DbConnect.DbConnect.SaveTimeHashSuccess(time, hash);
+
                 return true;
             }
             catch (Exception ex)
@@ -190,5 +191,7 @@ namespace TCP_Server
             }
         }
 
+
+        public static int ID { get; set; }
     }
 }

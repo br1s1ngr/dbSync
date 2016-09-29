@@ -19,6 +19,7 @@ namespace TCP_Client
         static Encoding code = Encoding.ASCII;
         static string delimeter = "_end_";
         static string storage;
+        static int id;
 
         public static int getPort()
         {
@@ -31,7 +32,7 @@ namespace TCP_Client
         }
 
         // = new TcpClient();
-        private static List<DbConnect.DbConnect.LogTableRecord> queries;
+        private static List<DbConnect.DbConnect.ClientLogTableRecord> queries;
 
         public static void init(string[] clientConfig)
         {
@@ -52,8 +53,15 @@ namespace TCP_Client
 
         private static void connectClient()
         {
-            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            clientSocket.Connect(IP, Port);
+            try
+            {
+                clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                clientSocket.Connect(IP, Port);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("*****error: " + ex.Message);
+            }
         }
 
         public static void Begin()
@@ -62,18 +70,18 @@ namespace TCP_Client
             Console.WriteLine();
             while (true)
             {
-                queries = DbConnect.DbConnect.GetQueries();
+                queries = DbConnect.DbConnect.GetQueriesFromClientLog();
                 if (queries.Count > 0)
                 {
                     if (clientSocket.Connected)
                         BeginSendingQueries();
                     else
                     {
-                        Thread.Sleep(1500);
+                        Thread.Sleep(1000);
                         connectClient();
                     }
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(50);
                 queries = null;
             }
         }
@@ -88,9 +96,10 @@ namespace TCP_Client
 
                 try
                 {
+                    id = -1;
                     sendQuery(record);
                     if (recieveResponse())
-                        updateLog(record);
+                        DbConnect.DbConnect.UpdateRecordInClientLog(id);
                 }
                 catch (Exception ex)
                 {
@@ -108,11 +117,11 @@ namespace TCP_Client
             int byteCount = 0;
 
             while ((byteCount = clientSocket.Receive(rgb)) > 0)
+            {
                 recieveBytes(rgb, byteCount);
-
-            if (storage == delimeter)
-                return true;
-
+                if (storage == delimeter)
+                    return true;
+            }
             return false;
             //NetworkStream stream = client..GetStream();
             //client.
@@ -139,16 +148,24 @@ namespace TCP_Client
         private static void recieveBytes(byte[] rgb, int byteCount)
         {
             storage += code.GetString(rgb, 0, byteCount);
+            int x;
+
+            while ((x = storage.IndexOf(delimeter)) >= 0)
+            {
+                string temp = storage.Substring(0, x);
+                id = int.Parse(temp);
+                storage = storage.Substring(x + 5);
+            }
         }
 
-        private static void updateLog(DbConnect.DbConnect.LogTableRecord logRecord)
+        private static void updateLog(DbConnect.DbConnect.ClientLogTableRecord logRecord)
         {
-            DbConnect.DbConnect.UpdateLog(logRecord);
+            DbConnect.DbConnect.UpdateRecordInClientLog(logRecord.ID);
             Console.WriteLine("query updated");
             Console.WriteLine("****************************");
         }
 
-        private static void sendQuery(DbConnect.DbConnect.LogTableRecord record)
+        private static void sendQuery(DbConnect.DbConnect.ClientLogTableRecord record)
         {
             //TcpClient client = new TcpClient(IP, Port);
             //TcpClient client = new TcpClient("192.168.0.103", 8888);
@@ -156,9 +173,9 @@ namespace TCP_Client
             //if (client.Connected)
             //{
 
-            clientSocket.Send(code.GetBytes(record.Argument + delimeter));
-            clientSocket.Send(code.GetBytes(record.EventTime.ToString("yyyy-MM-dd HH:mm:ss") + delimeter));
-
+            clientSocket.Send(code.GetBytes(record.ID/*.ToString()*/ + delimeter));
+            clientSocket.Send(code.GetBytes(record.Query + delimeter));
+            //clientSocket.Shutdown(SocketShutdown.Send);
             //IFormatter formatter = new BinaryFormatter();
             //Stream s = new MemoryStream();
             //formatter.Serialize(s, record);
@@ -174,7 +191,7 @@ namespace TCP_Client
 
             //    client.Client.Send(queryAsBytes.ToArray(), 0, queryAsBytes.ToArray().Length,SocketFlags.None);
 
-            Console.WriteLine("query sent: " + record.Argument);
+            Console.WriteLine("query sent: " + record.Query);
             //}
         }
     }
