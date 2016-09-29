@@ -60,7 +60,7 @@ namespace DbConnect
             //TO DO: get connection string details from file
             string connString = "server=localhost; database=mysql; uid=root; password='';";
             MySqlConnection conn = new MySqlConnection(connString);
-            string query = " select * from general_log where argument NOT like '%mysql%' and argument NOT like '%general_log%' and copied = 0 and (argument like 'update%' or argument like 'insert%' or argument like 'delete%' or argument like 'create%' or argument like 'drop%' or argument like 'alter%' or argument like 'rename%' or argument like 'truncate%' or argument like '%transaction%'); ";
+            string query = " select * from general_log where argument NOT like '%mysql%' and argument NOT like '%general_log%'  and argument NOT like '%client_db%' and copied = 0 and (argument like 'update%' or argument like 'insert%' or argument like 'delete%' or argument like 'create%' or argument like 'drop%' or argument like 'alter%' or argument like 'rename%' or argument like 'truncate%' or argument like '%transaction%'); ";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
             DataSet ds = new DataSet();
@@ -105,15 +105,15 @@ namespace DbConnect
             MySqlConnection conn = new MySqlConnection(connString);
             string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
             string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
-            query += "update mysql.general_log_temp set uploaded=true where  event_time = @time and thread_id = @threadID and server_id = @serverID and argument = @arg and user_host=@user;";
+            query += "update mysql.general_log_temp set copied=true where  event_time = @time and thread_id = @threadID and server_id = @serverID and user_host=@user;";
             query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
 
-            Console.WriteLine("**********************************");
-            Console.WriteLine("running query to update log: " + query);
-            Console.WriteLine("**********************************");
+            //Console.WriteLine("**********************************");
+            //Console.WriteLine("running query to update log: " + query);
+            //Console.WriteLine("**********************************");
 
             MySqlCommand cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@arg", record.Argument);
+            //cmd.Parameters.AddWithValue("@arg", record.Argument);
             cmd.Parameters.AddWithValue("@threadID", record.ThreadID);
             cmd.Parameters.AddWithValue("@serverID", record.ServerID);
             cmd.Parameters.AddWithValue("@time", record.EventTime);

@@ -16,16 +16,16 @@ namespace StartUpApp
             //Console.WriteLine("***********************");
 
             initDB();
-            //initClient();
-            initServer();
+            initClient();
+            //initServer();
 
             Thread copyLogThread = new Thread(new ThreadStart(CopyLog));
             copyLogThread.Start();
 
-            Thread newThrd = new Thread(new ThreadStart(TCP_Server.Server.Connect));
-            //Thread newThrd2 = new Thread(new ThreadStart(TCP_Client.Client.Begin));
-            newThrd.Start();
-            //newThrd2.Start();
+            //Thread newThrd = new Thread(new ThreadStart(TCP_Server.Server.Connect));
+            Thread newThrd2 = new Thread(new ThreadStart(TCP_Client.Client.Begin));
+            //newThrd.Start();
+            newThrd2.Start();
 
             //string uri = AppDomain.CurrentDomain.BaseDirectory;
             //string uri2 = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
