@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,8 +15,10 @@ namespace TCP_Client
     {
         private static string IP { get; set; }
         private static int Port { get; set; }
-        private static TcpClient client;
-        static NetworkStream stream;
+        static Socket clientSocket;
+        static Encoding code = Encoding.ASCII;
+        static string delimeter = "_end_";
+        static string storage;
 
         public static int getPort()
         {
@@ -25,7 +29,7 @@ namespace TCP_Client
         {
             return IP;
         }
-        
+
         // = new TcpClient();
         private static List<DbConnect.DbConnect.LogTableRecord> queries;
 
@@ -37,6 +41,7 @@ namespace TCP_Client
                 IP = clientConfig[0];
                 Port = int.Parse(clientConfig[1]);
                 //client = new TcpClient(IP, Port);
+
                 connectClient();
             }
             catch (Exception ex)
@@ -47,10 +52,8 @@ namespace TCP_Client
 
         private static void connectClient()
         {
-            client = new TcpClient();
-            client.Connect(IP, Port);
-            stream = client.GetStream();
-            //client.Client.DualMode = true;
+            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            clientSocket.Connect(IP, Port);
         }
 
         public static void Begin()
@@ -62,7 +65,7 @@ namespace TCP_Client
                 queries = DbConnect.DbConnect.GetQueries();
                 if (queries.Count > 0)
                 {
-                    if (client.Connected)
+                    if (clientSocket.Connected)
                         BeginSendingQueries();
                     else
                     {
@@ -85,7 +88,7 @@ namespace TCP_Client
 
                 try
                 {
-                    sendQuery(record.Argument);
+                    sendQuery(record);
                     if (recieveResponse())
                         updateLog(record);
                 }
@@ -100,26 +103,42 @@ namespace TCP_Client
 
         private static bool recieveResponse()
         {
+            storage = "";
+            byte[] rgb = new byte[8192];
+            int byteCount = 0;
+
+            while ((byteCount = clientSocket.Receive(rgb)) > 0)
+                recieveBytes(rgb, byteCount);
+
+            if (storage == delimeter)
+                return true;
+
+            return false;
             //NetworkStream stream = client..GetStream();
             //client.
-            int bytesRecieved = 0;
-            List<byte> listBYtes = new List<byte>();
-            do {
-                byte[] bytes = new byte[1024];
-                bytesRecieved = stream.Read(bytes, 0, bytes.Length);
-                listBYtes.AddRange(bytes.Take(bytesRecieved));
-            } while (stream.DataAvailable);
-          //stream.Close();
-            string msg = Encoding.ASCII.GetString(listBYtes.ToArray());
-            if (msg == "recieved")
-            {
-                Console.WriteLine("************************");
-                Console.WriteLine("response recieved");
-                Console.WriteLine("************************");
+            //  int bytesRecieved = 0;
+            //  List<byte> listBYtes = new List<byte>();
+            //  do {
+            //      byte[] bytes = new byte[1024];
+            //      bytesRecieved = stream.Read(bytes, 0, bytes.Length);
+            //      listBYtes.AddRange(bytes.Take(bytesRecieved));
+            //  } while (stream.DataAvailable);
+            ////stream.Close();
+            //  string msg = Encoding.ASCII.GetString(listBYtes.ToArray());
+            //  if (msg == "recieved")
+            //  {
+            //      Console.WriteLine("************************");
+            //      Console.WriteLine("response recieved");
+            //      Console.WriteLine("************************");
 
-                return true;
-            }
-            return false;
+            //      return true;
+            //  }
+            //return false;
+        }
+
+        private static void recieveBytes(byte[] rgb, int byteCount)
+        {
+            storage += code.GetString(rgb, 0, byteCount);
         }
 
         private static void updateLog(DbConnect.DbConnect.LogTableRecord logRecord)
@@ -129,21 +148,33 @@ namespace TCP_Client
             Console.WriteLine("****************************");
         }
 
-        private static void sendQuery(string query)
+        private static void sendQuery(DbConnect.DbConnect.LogTableRecord record)
         {
             //TcpClient client = new TcpClient(IP, Port);
             //TcpClient client = new TcpClient("192.168.0.103", 8888);
 
             //if (client.Connected)
             //{
-                byte[] queryAsBytes = Encoding.ASCII.GetBytes(query);
-                stream.Write(queryAsBytes, 0, queryAsBytes.Length);
-                stream.Flush();
-                //stream.Close();
-                
-            //stream =  client.GetStream();
 
-                Console.WriteLine("query sent: " + query);
+            clientSocket.Send(code.GetBytes(record.Argument + delimeter));
+            clientSocket.Send(code.GetBytes(record.EventTime.ToString("yyyy-MM-dd HH:mm:ss") + delimeter));
+
+            //IFormatter formatter = new BinaryFormatter();
+            //Stream s = new MemoryStream();
+            //formatter.Serialize(s, record);
+            //byte[] buffer = ((MemoryStream)s).ToArray();
+
+            //byte[] doneAsBytes = Encoding.ASCII.GetBytes("*done*");
+            //List<byte> queryAsBytes = new List<byte>();
+            //queryAsBytes.AddRange(buffer);
+            //queryAsBytes.AddRange(doneAsBytes);
+
+            //    //stream.Write(queryAsBytes.ToArray(), 0, queryAsBytes.ToArray().Length);
+            //    //stream.Flush();
+
+            //    client.Client.Send(queryAsBytes.ToArray(), 0, queryAsBytes.ToArray().Length,SocketFlags.None);
+
+            Console.WriteLine("query sent: " + record.Argument);
             //}
         }
     }

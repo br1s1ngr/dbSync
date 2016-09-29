@@ -18,48 +18,58 @@ namespace DbConnect
         static string prevQuery;
 
         public static void init(string[] connectionInfo)
-        {            
+        {
             Server = connectionInfo[0];
             Database = connectionInfo[1];
             Uid = connectionInfo[2];
             Pwd = connectionInfo[3];
         }
 
-        public static bool RunQuery(string sqlQuery)
+        public static void RunQuery(string sqlQuery)
         {
             //TO DO: get connection string details from file
             int i = 0;
-            string connString = "server=localhost; database=dbsynctest; uid=root; password='';";
+            string connString = "server=" + Server + "; database= " + Database + "; uid=" + Uid + "; password=" + Pwd + ";";
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
                 MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
                 conn.Open();
-                
+
+                //try
+                //{
+                //    i = cmd.ExecuteNonQuery();
+                //    prevQuery = "";
+                //}
+                //catch (Exception ex)
+                //{
+                //    try
+                //    {
+                //        prevQuery += sqlQuery;
+                //        cmd = new MySqlCommand(prevQuery, conn);
+                //        i = cmd.ExecuteNonQuery();
+
+                //        prevQuery = "";
+                //    }
+                //    catch (Exception ex_II)
+                //    { }
+                //}
                 try
                 {
-                    i = cmd.ExecuteNonQuery();
-                    prevQuery = "";
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
                 }
                 catch (Exception ex)
                 {
-                    try
-                    {
-                        prevQuery += sqlQuery;
-                        cmd = new MySqlCommand(prevQuery, conn);
-                        i = cmd.ExecuteNonQuery();
-
-                        prevQuery = "";
-                    }
-                    catch (Exception ex_II)
-                    { }
-                }
-                finally
-                {
                     conn.Close();
+                    throw ex;
                 }
-                if (i > 0)
-                    return true;
-                return false;
+                //finally
+                //{
+                //    conn.Close();
+                //}
+                //if (i > 0)
+                //    return true;
+                //return false;
             }
         }
 
@@ -92,10 +102,10 @@ namespace DbConnect
             string connString = "server=localhost; database=mysql; uid=root; password='';";
             using (MySqlConnection conn = new MySqlConnection(connString))
             {
-            string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
-            string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
-            query += "update mysql.general_log_temp set uploaded=true where  event_time = '" + time + "' and thread_id = '" + record.ThreadID + "' and server_id = '" + record.ServerID + "';";
-            query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
+                string query = "SET GLOBAL general_log = 'OFF'; RENAME TABLE general_log TO general_log_temp;";
+                string time = record.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
+                query += "update mysql.general_log_temp set uploaded=true where  event_time = '" + time + "' and thread_id = '" + record.ThreadID + "' and server_id = '" + record.ServerID + "';";
+                query += "RENAME TABLE general_log_temp TO general_log; SET GLOBAL general_log = 'ON';";
                 Console.WriteLine("**********************************");
                 Console.WriteLine("running query to update log: " + query);
                 Console.WriteLine("**********************************");
@@ -106,6 +116,29 @@ namespace DbConnect
                 conn.Close();
             }
         }
+
+        public static bool SaveTimeHashSuccess(string eventTime, string hash)
+        {
+            //TryCreateServerLogDb();
+            int i = 0;
+            string connString = "server=localhost; database=server_db; uid=root; password='';";
+            MySqlConnection conn = new MySqlConnection(connString);
+            string query = "insert into server_db.log (event_time) values (," + eventTime + "' , '" + hash + "');";
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            try
+            {
+                conn.Open();
+                i = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            { }
+            finally
+            { conn.Close(); }
+
+            if (i > 0) return true;
+            return false;
+        }
+
 
         public class LogTableRecord
         {
@@ -124,5 +157,6 @@ namespace DbConnect
             public string ServerID { get; set; }
             public string Argument { get; set; }
         }
+
     }
 }

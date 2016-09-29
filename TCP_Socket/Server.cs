@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,8 +15,13 @@ namespace TCP_Server
     public static class Server
     {
         private static int Port { get; set; }
-        private static TcpListener listener;
-        static NetworkStream stream;
+        static Socket serverSocket;
+        static Encoding code = Encoding.ASCII;
+        static string delimeter = "_end_";
+        static string storage;
+        static List<string> query_time;// = new string[2];
+
+        static TcpListener listener;
 
         public static void init(string[] serverConfig)
         {
@@ -32,8 +39,12 @@ namespace TCP_Server
 
         private static void server_listen()
         {
-            listener = new TcpListener(IPAddress.Any, Port);
-            listener.Start(-1);
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            serverSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
+            //serverSocket.Listen(-1);
+
+            //listener = new TcpListener(IPAddress.Any, Port);
+            //listener.Start(-1);
             //stream = new NetworkStream(listener.AcceptSocket());
 
         }
@@ -44,80 +55,126 @@ namespace TCP_Server
         }
 
         public static void Connect()
-        {            
-            listener.Start();
+        {
+            serverSocket.Listen(-1);
+            //listener.Start();
             Console.WriteLine("Listening......");
             Console.WriteLine();
 
-            Socket socket = listener.AcceptSocket();
+            //Socket socket = listener.AcceptSocket();
+            Socket socket = serverSocket.Accept();
 
             while (true)
             {
                 //Socket handlerSocket = listener.AcceptSocket();
-//                NetworkStream s = handlerSocket.Acc
+                //                NetworkStream s = handlerSocket.Acc
                 //if (handlerSocket.Connected)
                 //{
 
                 if (socket.Connected)
-                    stream = new NetworkStream(socket);
-                try
                 {
-                    acceptQuery();
-                    //Console.WriteLine("*****************");
-                    //Thread thread = new Thread(new ThreadStart(acceptQuery));
-                    //thread.Start();
-                    //sendResponse();
-                }
-                catch (Exception ex)
-                {
-
+                    //stream = new NetworkStream(socket);
+                    try
+                    {
+                        acceptQuery(socket);
+                        //Console.WriteLine("*****************");
+                        //Thread thread = new Thread(new ThreadStart(acceptQuery));
+                        //thread.Start();
+                        //sendResponse();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
                 //}
             }
         }
 
-        private static void sendResponse()
+        private static void sendResponse(Socket socket)
         {
             Console.WriteLine("sending response");
-            byte[] msg = Encoding.ASCII.GetBytes("recieved");
-            //handlerSocket.Send(msg);
-            stream.Write(msg, 0, msg.Length);
-            stream.Flush();
+            //byte[] msg = Encoding.ASCII.GetBytes("recieved");
+            ////handlerSocket.Send(msg);
+            //stream.Write(msg, 0, msg.Length);
+            //stream.Flush();
             //stream.Close();
+
+            socket.Send(code.GetBytes(delimeter));
         }
 
-        private static void acceptQuery()
+        private static void acceptQuery(Socket socket)
         {
             //Socket handlerSocket = (Socket)alSockets[alSockets.Count - 1];
             //long x = stream.Length;
             //stream = new NetworkStream(listener.Server);
 
-            int thisRead = 0;
-            int blockSize = 1024;
-            List<byte> listBytes = new List<byte>();
-            byte[] databyte = new byte[blockSize];
+            query_time = new List<string>();
+            int byteCount = 0;
+            byte[] rgb = new byte[8192];
 
-            while (stream.DataAvailable)
+            while ((byteCount = socket.Receive(rgb)) > 0)
+                recieveBytes(rgb, byteCount);
+
+            //    thisRead = stream.Read(rgb, 0, blockSize);
+            //    listBytes.AddRange(rgb.Take(thisRead));
+            //    if (thisRead == 0)
+            //        break;
+            //}
+
+            if (runQuery())
+                sendResponse(socket);
+        }
+
+        private static bool runQuery()
+        {
+            try
             {
-                thisRead = stream.Read(databyte, 0, blockSize);
-                listBytes.AddRange(databyte.Take(thisRead));
-                if (thisRead == 0)
-                    break;
-            }
-                string recievedQuery = Encoding.ASCII.GetString(listBytes.ToArray());
-               
-                if (!String.IsNullOrWhiteSpace(recievedQuery))
-                {
-                    Console.WriteLine("query recieved: " + recievedQuery);
-                    Console.WriteLine();
+                string query = query_time.ElementAt(0);
+                string time = query_time.ElementAt(1);
+                string hash = getQueryHash(query);
 
-                    if (DbConnect.DbConnect.RunQuery(recievedQuery))
-                        sendResponse();
-                }
-            //dbconnect = new DbConnect.DbConnect(recievedQuery);
-                //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
-                //insertQueryThread.Start();
-                // stream.Close();
-        }        
+                DbConnect.DbConnect.RunQuery(query);
+                DbConnect.DbConnect.SaveTimeHashSuccess(time, hash);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //    }
+        //}
+        //dbconnect = new DbConnect.DbConnect(recievedQuery);
+        //Thread insertQueryThread = new Thread(new ThreadStart(dbconnect.RunQuery));
+        //insertQueryThread.Start();
+        // stream.Close();
+        //}
+
+        private static void recieveBytes(byte[] rgb, int byteCount)
+        {
+            storage += code.GetString(rgb, 0, byteCount);
+            int x;
+
+            while ((x = storage.IndexOf(delimeter)) >= 0)
+            {
+                query_time.Add(storage.Substring(0, x));
+                storage = storage.Substring(x + 5);
+            }
+        }
+
+        private static string getQueryHash(string query)
+        {
+            using (MD5 md5Hash = MD5.Create())
+            {
+                byte[] data = md5Hash.ComputeHash(Encoding.ASCII.GetBytes(query));
+                StringBuilder sBuilder = new StringBuilder();
+
+                for (int i = 0; i < data.Length; i++)
+                    sBuilder.Append(data[i].ToString("x2"));
+
+                return sBuilder.ToString();
+            }
+        }
+
     }
 }
