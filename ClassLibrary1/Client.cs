@@ -19,7 +19,7 @@ namespace TCP_Client
         static Encoding code = Encoding.ASCII;
         static string delimeter = "_end_";
         static string storage;
-        static int id;
+        static int queryId;
 
         public static int getPort()
         {
@@ -96,10 +96,13 @@ namespace TCP_Client
 
                 try
                 {
-                    id = -1;
+                    queryId = -1;
                     sendQuery(record);
                     if (recieveResponse())
-                        DbConnect.DbConnect.UpdateRecordInClientLog(id);
+                    {
+                        DbConnect.DbConnect.UpdateRecordInClientLog(queryId);
+                        Console.WriteLine("log updated");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +124,7 @@ namespace TCP_Client
                 recieveBytes(rgb, byteCount);
                 if (storage == delimeter)
                     return true;
+               
             }
             return false;
             //NetworkStream stream = client..GetStream();
@@ -150,11 +154,12 @@ namespace TCP_Client
             storage += code.GetString(rgb, 0, byteCount);
             int x;
 
-            while ((x = storage.IndexOf(delimeter)) >= 0)
+            while ((x = storage.IndexOf(delimeter)) > 0)
             {
                 string temp = storage.Substring(0, x);
-                id = int.Parse(temp);
-                storage = storage.Substring(x + 5);
+                queryId = int.Parse(temp);
+                //storage = storage.Remove(0, x);
+                storage = storage.Substring(x);
             }
         }
 
