@@ -60,14 +60,18 @@ namespace TCP_Client
             }
             catch (Exception ex)
             {
+#if DEBUG
                 Console.WriteLine("*****error: " + ex.Message);
+#endif
             }
         }
 
         public static void Begin()
         {
+#if DEBUG
             Console.WriteLine("Connecting......");
             Console.WriteLine();
+#endif
             while (true)
             {
                 queries = DbConnect.DbConnect.GetQueriesFromClientLog();
@@ -101,13 +105,17 @@ namespace TCP_Client
                     if (recieveResponse())
                     {
                         DbConnect.DbConnect.UpdateRecordInClientLog(queryId);
-                        Console.WriteLine("log updated");
+#if DEBUG
+                        Console.WriteLine("log updated for query number: " + queryId);
+#endif
                     }
                 }
                 catch (Exception ex)
                 {
+#if DEBUG
                     Console.WriteLine(ex.Message);
                     Console.WriteLine();
+#endif  
                     errorOccurred = true;
                 }
             }
@@ -166,8 +174,10 @@ namespace TCP_Client
         private static void updateLog(DbConnect.DbConnect.ClientLogTableRecord logRecord)
         {
             DbConnect.DbConnect.UpdateRecordInClientLog(logRecord.ID);
+#if DEBUG
             Console.WriteLine("query updated");
             Console.WriteLine("****************************");
+#endif
         }
 
         private static void sendQuery(DbConnect.DbConnect.ClientLogTableRecord record)
@@ -195,8 +205,9 @@ namespace TCP_Client
             //    //stream.Flush();
 
             //    client.Client.Send(queryAsBytes.ToArray(), 0, queryAsBytes.ToArray().Length,SocketFlags.None);
-
+#if DEBUG
             Console.WriteLine("query sent: " + record.Query);
+#endif
             //}
         }
     }

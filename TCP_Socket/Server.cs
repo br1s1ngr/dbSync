@@ -23,8 +23,10 @@ namespace TCP_Server
         static string query;
         static string hash;
         static string time;
-
         static TcpListener listener;
+        //query id from client
+        public static int ID { get; set; }
+
 
         public static void init(string[] serverConfig)
         {
@@ -61,9 +63,10 @@ namespace TCP_Server
         {
             serverSocket.Listen(-1);
             //listener.Start();
+#if DEBUG
             Console.WriteLine("Listening......");
             Console.WriteLine();
-
+#endif
             do
             {
                 //Socket socket = listener.AcceptSocket();
@@ -103,8 +106,9 @@ namespace TCP_Server
             //stream.Write(msg, 0, msg.Length);
             //stream.Flush();
             //stream.Close();
-
-            Console.WriteLine("sending response");
+#if DEBUG
+            Console.WriteLine("sending response : " + ID);
+#endif
             socket.Send(code.GetBytes(ID + delimeter));
         }
 
@@ -131,6 +135,11 @@ namespace TCP_Server
             //}
 
             defineParameters();
+
+#if DEBUG
+            Console.WriteLine("query recieved : " + query);
+#endif
+
             if (!DbConnect.DbConnect.QueryInLog(ID))
             {
                 runQuery();
@@ -180,6 +189,7 @@ namespace TCP_Server
             }
         }
 
+        //not in use
         private static string getQueryHash(string query)
         {
             using (MD5 md5Hash = MD5.Create())
@@ -194,7 +204,5 @@ namespace TCP_Server
             }
         }
 
-
-        public static int ID { get; set; }
     }
 }
